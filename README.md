@@ -1,76 +1,88 @@
 # Red Sneakers HQ
 
 <p align="center">
-  <strong>Storefront, inventory operations, pre-orders, and in-store POS — one transaction-safe system.</strong>
+  <strong>Toko online, operasi inventaris, pre-order, dan POS toko dalam satu sistem yang transaksional dan aman.</strong>
 </p>
 
 <p align="center">
   <a href="https://nextjs.org"><img alt="Next.js 16" src="https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs"></a>
   <a href="https://www.typescriptlang.org"><img alt="TypeScript strict" src="https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white"></a>
   <a href="https://supabase.com"><img alt="Supabase" src="https://img.shields.io/badge/Supabase-PostgreSQL%20%7C%20Auth%20%7C%20Realtime-3FCF8E?logo=supabase&logoColor=white"></a>
-  <a href="https://midtrans.com"><img alt="Midtrans Snap" src="https://img.shields.io/badge/Payments-Midtrans%20Snap-EB1C24"></a>
+  <a href="https://midtrans.com"><img alt="Midtrans Snap" src="https://img.shields.io/badge/Pembayaran-Midtrans%20Snap-EB1C24"></a>
 </p>
 
-**Red Sneakers HQ** is a portfolio-grade B2C sneaker commerce application built to address a common retail problem: disconnected store and online inventory. It provides a shared, auditable inventory model for online checkout, physical-store sales, pickup, and pre-orders.
+**Red Sneakers HQ** adalah aplikasi e-commerce B2C sepatu konsumen berkualitas portofolio yang dirancang untuk mengatasi masalah umum ritail: keterputusan inventaris antara toko fisik dan toko online. Aplikasi menyediakan model inventaris bersama dan dapat diperiksa untuk pemesanan online, penjualan toko fisik, pengambilan barang di toko, dan pre-order.
 
-> Project status: Fases 1–7 implemented. Local automated checks pass; end-to-end database verification requires Docker Desktop and a running Supabase instance.
+> Status proyek: Fases 1–7 telah diimplementasi. Pemeriksaan otomatis lokal lulus; verifikasi basis data menyeluruh memerlukan Docker Desktop dan instance Supabase yang berjalan.
 
-## Product capabilities
+## 1. Gambaran Umum Produk
 
-| Area | What it does |
-| --- | --- |
-| Storefront | Searchable sneaker catalog, product variants, live stock availability, and customer accounts |
-| Checkout | Shipping or store pickup; server-calculated prices and delivery fees; map-based delivery coordinates |
-| Inventory | `STORE` / `ONLINE` stock allocation, atomic row-locked reservations, and append-only stock movement ledger |
-| Payments | Server-created Midtrans Snap transactions, SHA-512 notification signature verification, and idempotent webhooks |
-| Pre-orders | Quota-controlled batches, full or deposit payment, balance collection, and inventory receipt |
-| Store operations | Cashier POS, order fulfillment, pickup confirmation, and realtime stock updates |
-| Admin | Product and inventory management, low-stock view, sales summary, and bounded CSV export |
+| Area | Fungsi |
+|------|--------|
+| Toko online | Katalog sepatu dapat dicari, varian produk, ketersediaan stok langsung, dan akun pelanggan |
+| Checkout | Pengiriman atau pengambilan di toko; harga dan biaya pengiriman dihitung di server; peta koordinasi pengiriman |
+| Inventaris | Alokasi stok `STORE` / `ONLINE`, reservasi kunci baris secara atomik, dan buku besar pergerakan stok yang hanya ditambahkan |
+| Pembayaran | Transaksi Midtrans Snap dibuat di server, verifikasi tanda tangan SHA-512 notifikasi, dan webhook idempotensi |
+| Pre-order | Batch yang dikontrol kuota, pembayaran penuh atau uang muka, penagihan saldo, dan penerimaan inventaris |
+| Operasi toko | Kasir POS, pemenuhan pesanan, konfirmasi pengambilan, dan pembaruan stok secara realtime |
+| Admin | Manajemen produk dan inventaris, tampilan stok rendah, ringkasan penjualan, dan ekspor CSV terbatas |
 
-## Engineering highlights
+## 2. Unggulan Teknis
 
-- PostgreSQL RPCs perform price calculations, stock reservation/confirmation, POS sales, and pre-order quota changes transactionally.
-- Row locks and database constraints protect inventory from overselling during concurrent requests.
-- Every stock adjustment, reservation, release, and sale is recorded in `stock_movements`.
-- Supabase Row Level Security and server-side role checks separate customer, cashier, and admin access.
-- Zod validation runs at server boundaries; service-role and Midtrans server keys remain server-only.
-- Unit tests cover payment signatures/statuses, webhook handling, POS validation, pre-order validation, and CSV formula escaping.
+- Prosedur basis data PostgreSQL melakukan perhitungan harga, reservasi/konfirmasi stok, penjualan POS, dan perubahan kuota pre-order secara transaksional.
+- Kunci baris dan batasan basis data melindungi inventaris dari penjualan berlebihan selama permintaan bersamaan.
+- Setiap penyesuaian, reservasi, rilis, dan penjualan stok dicatat dalam `stock_movements`.
+- Keamanan Tingkat Baris (RLS) Supabase dan pemeriksaan peran di sisi server memisahkan akses pelanggan, kasir, dan admin.
+- Validasi Zod berjalan di batas server; kunci peran layanan Supabase dan kunci server Midtrans tetap hanya di sisi server.
+- Uji unit mencakup tanda tangan/status pembayaran, penanganan webhook, validasi POS, validasi pre-order, dan pelarasan rumus CSV.
 
-## Technology
+## 3. Teknologi yang Digunakan
 
-**Next.js App Router · TypeScript strict · React · Tailwind CSS · Supabase/PostgreSQL · Supabase Auth and Realtime · Midtrans Snap · Leaflet/OpenStreetMap · Zod · React Hook Form · Vitest**
+**Next.js App Router · TypeScript strict · React · Tailwind CSS · Supabase/PostgreSQL · Supabase Auth dan Realtime · Midtrans Snap · Leaflet/OpenStreetMap · Zod · React Hook Form · Vitest**
 
-## Run locally
+## 4. Persyaratan Sistem dan Perangkat Lunak
 
-Requirements: Node.js 20.9+, Docker Desktop, and the Supabase CLI (installed through the project dependency).
+- Node.js 20.9+
+- npm (mengikuti `package-lock.json`)
+- Docker Desktop (untuk menjalankan Supabase secara lokal)
+- Supabase CLI (terpasang sebagai dependensi proyek)
+
+## 5. Langkah Instalasi dan Konfigurasi
+
+1. Salin berkas contoh variabel lingkungan:
 
 ```powershell
 Copy-Item .env.example .env.local
+```
+
+2. Pasang dependensi:
+
+```powershell
 npm install
+```
+
+3. Jalankan Supabase lokal dan terapkan migrasi:
+
+```powershell
 npm run db:start
 npm run db:reset
+```
+
+4. Buat akun demo:
+
+```powershell
 npm run seed:users
+```
+
+5. Jalankan aplikasi dalam mode pengembangan:
+
+```powershell
 npm run dev
 ```
 
-Before starting the app, set local Supabase keys and unique demo account passwords in `.env.local`. Configure sandbox Midtrans keys to test payments. Never commit `.env.local`; secrets are excluded by `.gitignore`.
+Sebelum memulai aplikasi, isi kunci Supabase dan sandi akun demo unik di `.env.local`. Konfigurasikan kunci Midtrans sandbox untuk menguji pembayaran. Jangan pernah melakukan komit `.env.local`; berkas dikecualikan oleh `.gitignore`.
 
-Quality checks:
-
-```powershell
-npm run lint
-npm run typecheck
-npm test
-npm run build
-```
-
-The concurrency integration check is opt-in and restricted to a local Supabase URL:
-
-```powershell
-npm run test:stock-concurrency
-```
-
-For Supabase hosted setup, payment notification configuration, the ER diagram, migration details, and thesis-oriented test scenarios, see the sections below.
+Untuk setup Supabase hosted, konfigurasi notifikasi pembayaran, diagram ER, detail migrasi, dan skenario uji berorientasi tesis, lihat bagian-bagian di bawah ini.
 
 ---
 
@@ -174,17 +186,21 @@ Langkah konfigurasi checkout:
 src/app/                         Halaman App Router dan server actions
 src/app/api/                     Route handler (webhook pembayaran Midtrans)
 src/app/orders/                  Daftar pesanan, detail pesanan, dan aksi pembayaran
-src/components/                  UI storefront, checkout/peta, form auth, dan konsol admin
+src/components/                  UI toko online, checkout/peta, form auth, dan konsol admin
 src/components/payment/          Tombol pembayaran Snap yang memuat snap.js
-src/lib/catalog/                 Query katalog server-side
-src/lib/midtrans/                Konfigurasi, signature SHA512, peta status, dan klien Snap
-src/lib/orders/                  Query pesanan, label status, dan pembaca snapshot pengiriman
-src/lib/payments/                Penyiapan token pembayaran dan penerapan notifikasi
-src/lib/supabase/                Klien browser/server/service, tipe, dan guard sesi
-src/lib/validators/              Skema Zod untuk auth, katalog, checkout, admin, dan Midtrans
-scripts/seed-demo-users.ts       Pembuatan akun demo melalui Supabase Auth Admin API
-supabase/config.toml            Konfigurasi Supabase CLI
-supabase/migrations/             Schema, indeks, RLS, trigger, dan RPC
+src/lib/catalog/                 Query katalog sisi server
+src/lib/midtrans/                Konfigurasi, Snap, dan tanda tangan Midtrans
+src/lib/orders/                  Query dan label pesanan
+src/lib/payments/                Aplikasi notifikasi dan pembuatan token pembayaran
+src/lib/reports/                 Ekspor CSV dan pelarasan sel
+src/lib/stock/                   Hook stok realtime
+src/lib/supabase/                Klien server, browser, service role, viewer, dan env
+src/lib/validators/              Skema Zod untuk auth, checkout, katalog, midtrans, POS, pre-order
+src/test/                        Stub pengujian sisi server
+scripts/                         Skrip seed pengguna dan uji konkurensi stok
+supabase/                        Migrasi, benih data, dan konfigurasi Supabase CLI
+public/                          Aset statis
+```
 supabase/seed.sql                Brand, produk, stok demo, dan batch pre-order demo
 vitest.config.ts                 Konfigurasi unit test beserta alias path dan stub server-only
 .env.example                    Nama variabel environment tanpa secret

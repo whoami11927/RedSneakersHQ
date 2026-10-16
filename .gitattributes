@@ -1,0 +1,22 @@
+# Konsistensi line-encoding dan line-ending lintas sistem operasi.
+# https://git-scm.com/docs/gitattributes
+
+* text=auto eol=lf
+
+*.ts text diff=typescript
+*.tsx text diff=typescript
+*.js text
+*.json text
+*.md text
+*.css text
+*.html text
+*.env* text eol=lf
+*.sql text
+
+# Hindari produksi diff besar dari file hasil build dan cache.
+.next/ -text
+out/ -text
+build/ -text
+node_modules/ -text
+supabase/.temp/ -text
+*.tsbuildinfo -text

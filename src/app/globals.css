@@ -1,0 +1,104 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "leaflet/dist/leaflet.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-ui);
+  --font-heading: var(--font-display);
+  --font-mono: var(--font-geist-mono);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+:root {
+  color-scheme: light;
+  --background: #f3f0ea;
+  --foreground: #171717;
+  --card: #fbfaf7;
+  --card-foreground: #171717;
+  --popover: #fbfaf7;
+  --popover-foreground: #171717;
+  --primary: #b42318;
+  --primary-foreground: #ffffff;
+  --secondary: #e8e3dc;
+  --secondary-foreground: #252321;
+  --muted: #e8e3dc;
+  --muted-foreground: #4c4741;
+  --accent: #b42318;
+  --accent-foreground: #ffffff;
+  --destructive: #a61b12;
+  --border: #827970;
+  --input: #827970;
+  --ring: #b42318;
+  --radius: 0.4rem;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #171514;
+  --foreground: #f6f2eb;
+  --card: #211f1d;
+  --card-foreground: #f6f2eb;
+  --popover: #211f1d;
+  --popover-foreground: #f6f2eb;
+  --primary: #e5453b;
+  --primary-foreground: #1a1110;
+  --secondary: #302b27;
+  --secondary-foreground: #f6f2eb;
+  --muted: #302b27;
+  --muted-foreground: #d1c9c0;
+  --accent: #e5453b;
+  --accent-foreground: #1a1110;
+  --destructive: #f16d63;
+  --border: #746b62;
+  --input: #746b62;
+  --ring: #f17870;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen bg-background text-foreground antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    color: #ffffff;
+    background: #b42318;
+  }
+}
